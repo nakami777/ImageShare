@@ -1,23 +1,47 @@
 import * as React from "react";
-import { TouchableOpacity, Image, StyleSheet } from "react-native";
-
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import logo from "../assets/images/logo.png";
+import { TouchableOpacity, Image, StyleSheet } from "react-native";
+
+import * as ImagePicker from "expo-image-picker";
+import EditScreenInfo from "../components/EditScreenInfo";
 
 export default function App() {
+  const [selectedImage, setSelectedImage] = React.useState(null);
+
+  let openImagePickerAsync = async () => {
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted == false) {
+      alert("カメラロールにアクセスするための許可が必要です！");
+      return;
+    }
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setSelectedImage({ localUri: pickerResult.uri });
+  };
+
+  if (selectedImage !== null) {
+    return (
+      <View style={styles.container}>
+        <Image
+          source={{ uri: selectedImage.localUri }}
+          style={styles.thumbnail}
+        />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.logo} />
-      <Text style={styles.instraction}>
-        To share a photo from your phone with a friend, just press the button
-        below!
-      </Text>
-      <TouchableOpacity
-        onPress={() => alert("押してくれてありがとう")}
-        style={styles.buttonUi}
-      >
-        <Text style={styles.buttonText}>Pick a photo</Text>
+      <Text style={styles.instraction}>友達と撮った写真を、友達と共有する</Text>
+      <TouchableOpacity onPress={openImagePickerAsync} style={styles.buttonUi}>
+        <Text style={styles.buttonText}>写真を選択する</Text>
       </TouchableOpacity>
     </View>
   );
@@ -33,7 +57,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 305,
     height: 159,
-    marginBottom: 100,
+    marginBottom: 25,
   },
   instraction: {
     color: "#888",
@@ -42,10 +66,17 @@ const styles = StyleSheet.create({
   },
   buttonUi: {
     backgroundColor: "blue",
-    marginTop: 10,
+    marginTop: 25,
+    padding: 20,
+    borderRadius: 10,
   },
   buttonText: {
     fontSize: 20,
     color: "white",
+  },
+  thumbnail: {
+    width: 300,
+    height: 300,
+    resizeMode: "contain",
   },
 });
