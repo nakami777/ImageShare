@@ -1,9 +1,11 @@
 import * as React from "react";
 import { Text, View } from "../components/Themed";
 import logo from "../assets/images/logo.png";
-import { TouchableOpacity, Image, StyleSheet } from "react-native";
+import { TouchableOpacity, Platform, Image, StyleSheet } from "react-native";
 
 import * as ImagePicker from "expo-image-picker";
+import * as Sharing from "expo-sharing";
+import uploadToAnonymousFilesAsync from "anonymous-files";
 import EditScreenInfo from "../components/EditScreenInfo";
 
 export default function App() {
@@ -22,7 +24,23 @@ export default function App() {
       return;
     }
 
-    setSelectedImage({ localUri: pickerResult.uri });
+    if (Platform.OS === "web") {
+      let remoteUri = await uploadToAnonymousFilesAsync(pickerResult.uri);
+
+      setSelectedImage({ localUri: pickerResult.uri, remoteUri });
+    } else {
+      setSelectedImage({ localUri: pickerResult.uri, remoteUri: null });
+    }
+  };
+
+  let openShareDialogAsync = async () => {
+    if (!(await Sharing.isAvailableAsync())) {
+      alert(
+        `この画像は、以下の場所で共有できます。:${selectedImage.remoteUri}で共有できます。`
+      );
+      return;
+    }
+    await Sharing.shareAsync(selectedImage.localUri);
   };
 
   if (selectedImage !== null) {
@@ -32,6 +50,12 @@ export default function App() {
           source={{ uri: selectedImage.localUri }}
           style={styles.thumbnail}
         />
+        <TouchableOpacity
+          onPress={openShareDialogAsync}
+          style={styles.buttonUi}
+        >
+          <Text style={styles.buttonText}>この画像をシェアする</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -56,7 +80,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 305,
-    height: 159,
+    height: 263,
     marginBottom: 25,
   },
   instraction: {

@@ -2234,6 +2234,11 @@ ajv@^6.12.3:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+anonymous-files@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/anonymous-files/-/anonymous-files-1.0.1.tgz#4d9c0d3351b2e586ff61872f0afb1aac4915f9fc"
+  integrity sha512-Jbxjad77k4l3cvJPgC+p5/hz/lxQQk3OocWM/hEdsTadX4q+62h8XfbKFNTZHalEkM2pt2EtAiqyzPDga1KMCw==
+
 anser@^1.4.9:
   version "1.4.10"
   resolved "https://registry.yarnpkg.com/anser/-/anser-1.4.10.tgz#befa3eddf282684bd03b63dcda3927aef8c2e35b"
@@ -3771,6 +3776,11 @@ expo-secure-store@~9.3.0:
   resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-9.3.0.tgz#b716d5d115cc50a34037d1afef84fe4b8ea0745c"
   integrity sha512-dNhKcoUUn+1kmEfFVxSU7h+YsqODqlExZQJcQgxgeiuCeeDvJWkE10t3jjrO6aNfrdM5i/X2l3oh401EDslWsQ==
 
+expo-sharing@~8.5.0:
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/expo-sharing/-/expo-sharing-8.5.0.tgz#8f54774fc0b2405bf63183c235544b7f978a7765"
+  integrity sha512-k5vz5O1bu9xMpIc3TTQSOwo0g/hvDGOLZzeN9F4dW6GbicC3PTRgFxHOw6vOMS5LXphAxfYcC+9ZtbocVJ7C0g==
+
 expo-splash-screen@~0.8.0:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.8.1.tgz#de4a018c82af879eeaa9b697013ef37d9567453a"
@@ -3798,7 +3808,7 @@ expo-web-browser@~8.6.0:
   dependencies:
     compare-urls "^2.0.0"
 
-expo@~40.0.0:
+expo@^40.0.1:
   version "40.0.1"
   resolved "https://registry.yarnpkg.com/expo/-/expo-40.0.1.tgz#20ae9f9c787ba1662037094dfd6982380f2c0288"
   integrity sha512-9NrhimvP44I1aDjGHMU4F0izCyfFTTYAQ6xZpWpuc+ZWRZqg8Zv62zNRlzBn+Ydaf1heSucnlJJ3Sp2gMdOEnQ==
